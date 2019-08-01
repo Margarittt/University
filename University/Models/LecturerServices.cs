@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace University.Models
 {
@@ -10,12 +11,30 @@ namespace University.Models
         {
             Console.WriteLine("Please enter the lecturer name..");
             string Name = Console.ReadLine();
+            bool allLetters;
+            while (!(allLetters = Name.All(c => Char.IsLetter(c))))
+            {
+                Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                Name = Console.ReadLine();
+            }
             Console.WriteLine("Please enter the University ID where you want to add..");
-            int LID = Int32.Parse(Console.ReadLine());
+            var LIDasStr = Console.ReadLine();
+            int LID;
+            while (!int.TryParse(LIDasStr, out LID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                LIDasStr = Console.ReadLine();
+            }
             if (ListOfUniversities.ContainsKey(LID))
             {
                 Console.WriteLine("Please enter the Faculty ID where you want to add..");
-                int FID = Int32.Parse(Console.ReadLine());
+                var FIDasStr = Console.ReadLine();
+                int FID;
+                while (!int.TryParse(FIDasStr, out FID))
+                {
+                    Console.WriteLine("This is not a number! Try again..");
+                    FIDasStr = Console.ReadLine();
+                }
                 if (ListOfUniversities[LID].Faculties.ContainsKey(FID))
                 {
                     Lecturer lecturer = new Lecturer();
@@ -41,7 +60,13 @@ namespace University.Models
         static public void GetLecturer(ref Dictionary<int, Lecturer> ListOfLecturers)
         {
             Console.WriteLine("Please enter the Lecturer's ID ․․");
-            int ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfLecturers.ContainsKey(ID))
             {
                 Lecturer lecturer = ListOfLecturers[ID];
@@ -58,7 +83,13 @@ namespace University.Models
         static public void RemoveLecturer(ref Dictionary<int, Lecturer> ListOfLecturers)
         {
             Console.WriteLine("Please enter the lecturer's ID․․");
-            int ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfLecturers.ContainsKey(ID))
             {
                 ListOfLecturers.Remove(ID);
@@ -75,11 +106,23 @@ namespace University.Models
         {
             string NewName;
             Console.WriteLine("Please enter the Students's ID․․");
-            int LID = Int32.Parse(Console.ReadLine());
+            var LIDasStr = Console.ReadLine();
+            int LID;
+            while (!int.TryParse(LIDasStr, out LID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                LIDasStr = Console.ReadLine();
+            }
             if (ListOfLecturers.ContainsKey(LID))
             {
                 Console.WriteLine("Please enter the new lecturer's name..");
                 NewName = Console.ReadLine();
+                bool allLetters;
+                while (!(allLetters = NewName.All(c => Char.IsLetter(c))))
+                {
+                    Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                    NewName = Console.ReadLine();
+                }
                 ListOfLecturers[LID].Name = NewName;
                 ListOfLecturers[LID].University.GetLecturer(LID).Name = NewName;
                 ListOfLecturers[LID].Faculty.GetLecturer(LID).Name = NewName;
@@ -92,9 +135,14 @@ namespace University.Models
 
         public static void LecturersOfThisUniversity(ref Dictionary<int, University> ListOfUniversities)
         {
-            int ID;
             Console.WriteLine("Please enter the University ID..");
-            ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfUniversities.ContainsKey(ID))
             {
                 foreach (KeyValuePair<int, Lecturer> lecturer in ListOfUniversities[ID].Lecturers)
@@ -107,9 +155,14 @@ namespace University.Models
 
         public static void LecturersOfThisFaculty(ref Dictionary<int, Faculty> ListOfFaculties)
         {
-            int ID;
             Console.WriteLine("Please enter the Faculty ID..");
-            ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfFaculties.ContainsKey(ID))
             {
                 foreach (KeyValuePair<int, Lecturer> lecturers in ListOfFaculties[ID].Lecturers)

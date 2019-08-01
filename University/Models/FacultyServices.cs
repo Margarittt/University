@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace University.Models
 {
@@ -10,15 +11,29 @@ namespace University.Models
         {
             Console.WriteLine("Please enter the Faculty name..");
             string Name = Console.ReadLine();
+            bool allLetters;
+            while (!(allLetters = Name.All(c => Char.IsLetter(c))))
+            {
+                Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                Name = Console.ReadLine();
+            }
             Console.WriteLine("Please enter the University ID where you want to add..");
-            int ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfUniversities.ContainsKey(ID))
             {
                 Faculty faculty = new Faculty();
                 faculty.Name = Name;
                 faculty.ID = ++Faculty.Count;
+                faculty.University = ListOfUniversities[ID];
                 ListOfUniversities[ID].Faculties.Add(faculty.ID, faculty);
                 ListOfFaculty.Add(faculty.ID, faculty);
+                
             }
             else
             {
@@ -29,7 +44,13 @@ namespace University.Models
         static public void GetFaculty(ref Dictionary<int, Faculty> ListOfFaculties)
         {
             Console.WriteLine("Please enter the Faculty's ID ․․");
-            int ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfFaculties.ContainsKey(ID))
             {
                 Console.WriteLine("{0}-{1} {2} {3},{4}",
@@ -46,7 +67,13 @@ namespace University.Models
         static public void RemoveFaculty(ref Dictionary<int, Faculty> ListOfFaculties)
         {
             Console.WriteLine("Please enter the Faculty's ID․․");
-            int ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfFaculties.ContainsKey(ID))
             {
                 ListOfFaculties.Remove(ID);
@@ -62,11 +89,23 @@ namespace University.Models
         {
             string NewName;
             Console.WriteLine("Please enter the Faculty's ID․․");
-            int FID = Int32.Parse(Console.ReadLine());
-            if (ListOfFaculties.ContainsKey(FID))
+            var FIDasStr = Console.ReadLine();
+            int FID;
+            while (!int.TryParse(FIDasStr, out FID))
             {
-                NewName = Console.ReadLine();
+                Console.WriteLine("This is not a number! Try again..");
+                FIDasStr = Console.ReadLine();
+            }
+            if (ListOfFaculties.ContainsKey(FID))
+            {               
                 Console.WriteLine("Please enter the new Faculty's name..");
+                NewName = Console.ReadLine();
+                bool allLetters;
+                while (!(allLetters = NewName.All(c => Char.IsLetter(c))))
+                {
+                    Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                    NewName = Console.ReadLine();
+                }
                 ListOfFaculties[FID].Name = NewName;
             }
             else
@@ -79,7 +118,7 @@ namespace University.Models
         {
             foreach (KeyValuePair<int,Faculty> faculty in ListOfFaculties)
             {
-                Console.WriteLine("{0}-{1} {2} {2},{3}", faculty.Value.ID,
+                Console.WriteLine("{0}-{1} {2} {3},{4}", faculty.Value.ID,
                     faculty.Value.Name, faculty.Value.University.Name, 
                     faculty.Value.University.City.Name, faculty.Value.University.Country.Name);
             }

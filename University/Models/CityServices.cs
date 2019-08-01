@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace University.Models
 {
@@ -8,10 +10,23 @@ namespace University.Models
         static public void AddCity(ref Dictionary<int, Country> ListOfCountries,ref Dictionary<int, City> ListOfCities)
         {  
             Console.WriteLine("Please enter the City name..");
+
             string Name = Console.ReadLine();
+            bool allLetters;
+            while(!(allLetters =Name.All(c => Char.IsLetter(c))))
+            {
+                Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                Name = Console.ReadLine();
+            }
             Console.WriteLine("Please enter the Country's ID where you want to add..");
-            int ID = int.Parse(Console.ReadLine());
-            if(ListOfCountries.ContainsKey(ID))
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
+            if (ListOfCountries.ContainsKey(ID))
             {
                 City city = new City();
                 city.Name = Name;
@@ -29,7 +44,13 @@ namespace University.Models
         static public void GetCity(ref Dictionary<int, City> ListOfCities)
         {
             Console.WriteLine("Please enter the City's ID ․․");
-            int ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfCities.ContainsKey(ID))
             {
                 City city = ListOfCities[ID];
@@ -44,7 +65,13 @@ namespace University.Models
         static public void RemoveCity(ref Dictionary<int, City> ListOfCities)
         {
             Console.WriteLine("Please enter the City's ID․․");
-            int ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfCities.ContainsKey(ID))
             {
                 ListOfCities.Remove(ID);
@@ -59,11 +86,23 @@ namespace University.Models
         {
             string NewName;
             Console.WriteLine("Please enter the City's ID you want to change․․");
-            int CID = Int32.Parse(Console.ReadLine());
+            var CIDasStr = Console.ReadLine();
+            int CID;
+            while (!int.TryParse(CIDasStr, out CID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                CIDasStr = Console.ReadLine();
+            }
             if (ListOfCities.ContainsKey(CID))
             {
                 Console.WriteLine("Please enter the new City's name..");
                 NewName = Console.ReadLine();
+                bool allLetters;
+                while (!(allLetters = NewName.All(c => Char.IsLetter(c))))
+                {
+                    Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                    NewName = Console.ReadLine();
+                }
                 ListOfCities[CID].Name = NewName;
             }
             else

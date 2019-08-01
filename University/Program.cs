@@ -152,10 +152,10 @@ namespace University
                         LecturerServices.LecturersOfThisFaculty(ref ListOfFaculties);
                         break;
                     case "6h1":
-                        StudentsServices.StudentsOfThisFaculty(ref ListOfFaculties);
+                        StudentsServices.StudentsOfThisUniversity(ref ListOfUniversities);
                         break;
                     case "6h2":
-                        StudentsServices.StudentsOfThisUniversity(ref ListOfUniversities);
+                        StudentsServices.StudentsOfThisFaculty(ref ListOfFaculties);
                         break;
                     default:
                         if (InputSymbol == "q") break;

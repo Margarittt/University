@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace University.Models
 {
@@ -10,12 +11,30 @@ namespace University.Models
         {
             Console.WriteLine("Please enter the University name..");
             string Name = Console.ReadLine();
+            bool allLetters;
+            while (!(allLetters = Name.All(c => Char.IsLetter(c))))
+            {
+                Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                Name = Console.ReadLine();
+            }
             Console.WriteLine("Please enter the Country ID where you want to add..");
-            int CountryID = Int32.Parse(Console.ReadLine());
+            var CountryIDasStr = Console.ReadLine();
+            int CountryID;
+            while (!int.TryParse(CountryIDasStr, out CountryID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                CountryIDasStr = Console.ReadLine();
+            }
             if (ListOfCountries.ContainsKey(CountryID))
             {
                 Console.WriteLine("Please enter the City ID where you want to add..");
-                int CityID = Int32.Parse(Console.ReadLine());
+                var CityIDasStr = Console.ReadLine();
+                int CityID;
+                while (!int.TryParse(CityIDasStr, out CityID))
+                {
+                    Console.WriteLine("This is not a number! Try again..");
+                    CityIDasStr = Console.ReadLine();
+                }
                 if (ListOfCountries[CountryID].Cities.ContainsKey(CityID))
                 {
                     University university = new University();
@@ -40,7 +59,13 @@ namespace University.Models
         static public void GetUniversity(ref Dictionary<int, University> ListOfUniversities)
         {
             Console.WriteLine("Please enter the University's ID ․․");
-            int ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfUniversities.ContainsKey(ID))
             {
                 Console.WriteLine("{0}-{1} {2},{3}",
@@ -56,7 +81,13 @@ namespace University.Models
         static public void RemoveUniversity(ref Dictionary<int, University> ListOfUniversities)
         {
             Console.WriteLine("Please enter the University's ID․․");
-            int ID = Int32.Parse(Console.ReadLine());
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
+            }
             if (ListOfUniversities.ContainsKey(ID))
             {
                 ListOfUniversities[ID].City.Universities.Remove(ID);
@@ -73,11 +104,23 @@ namespace University.Models
         {
             string NewName;
             Console.WriteLine("Please enter the University's ID․․");
-            int UID = Int32.Parse(Console.ReadLine());
+            var UIDasStr = Console.ReadLine();
+            int UID;
+            while (!int.TryParse(UIDasStr, out UID))
+            {
+                Console.WriteLine("This is not a number! Try again..");
+                UIDasStr = Console.ReadLine();
+            }
             if (ListOfUniversities.ContainsKey(UID))
             {
                 Console.WriteLine("Please enter the new University's name..");
                 NewName = Console.ReadLine();
+                bool allLetters;
+                while (!(allLetters = NewName.All(c => Char.IsLetter(c))))
+                {
+                    Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                    NewName = Console.ReadLine();
+                }
                 ListOfUniversities[UID].Name = NewName;
             }
             else
