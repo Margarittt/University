@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace University
 {
-    class Student : IShowable
+    class Student
     {
         public string Name { get; set; }
-        public int Number { get; set; }
-        public Universityy University { get; set; }
+        public int ID { get; set; }
+        static public int Count { get; set; }
+        public University University { get; set; }
         public Faculty Faculty { get; set; }
-
-        public void Show()
-        {
-            Console.WriteLine("{0}-{1} ({2}-{3})", Number, Name, University.Name, Faculty.Name);
-        }
     }
 }

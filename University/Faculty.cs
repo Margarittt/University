@@ -1,59 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace University
 {
-    class Faculty : IShowable
+    class Faculty
     {
         public string Name { get; set; }
-        public int Number { get; set; }
-        public int LecturersCount { get; set; }
-        public int StudentsCount { get; set; }
-        private Dictionary<int, Student> sName;
-        private Dictionary<int, Lecturer> lName;
+        public int ID { get; set; }
+        static public int Count;
+        public University University { get; set; }  
+        public Dictionary<int, Lecturer> Lecturers { get; set; }
+        public Dictionary<int, Student> Students { get; set; }
 
         public Faculty()
         {
-            sName = new Dictionary<int, Student>();
-            lName = new Dictionary<int, Lecturer>();
+            Lecturers = new Dictionary<int, Lecturer>();
+            Students = new Dictionary<int, Student>();
         }
 
-        public void SetLecturer(Lecturer lecturer)
+        public Lecturer GetLecturer(int id)
         {
-            lName.Add(lecturer.Number, lecturer);
+            return Lecturers[id];
         }
 
-        public Lecturer GetLecturer(int index)
+        public void SetLecturer(int id, Lecturer Lecturer)
         {
-            return lName[index];
+            Lecturers.Add(id, Lecturer);
         }
 
-        public Dictionary<int, Lecturer> GetLecturiesList()
+        public Student GetStudent(int id)
         {
-            return lName;
+            return Students[id];
         }
 
-        public Student GetStudent(int index)
+        public void SetStudent(int id, Student student)
         {
-            return sName[index];
-        }
-
-        public void SetStudent(Student student)
-        {
-            sName.Add(student.Number, student);
-        }
-
-        public Dictionary<int, Student> GetStudentsList()
-        {
-            return sName;
-        }
-
-        public void Show()
-        {
-            Console.WriteLine("{0}-{1}", Number, Name);
+            Students.Add(id, student);
         }
     }
 }

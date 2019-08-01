@@ -43,14 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="City.cs" />
+    <Compile Include="Country.cs" />
     <Compile Include="Faculty.cs" />
-    <Compile Include="IShowable.cs" />
     <Compile Include="Lecturer.cs" />
-    <Compile Include="Operator.cs" />
+    <Compile Include="Models\CityServices.cs" />
+    <Compile Include="Models\CountryServices.cs" />
+    <Compile Include="Models\FacultyServices.cs" />
+    <Compile Include="Models\LecturerServices.cs" />
+    <Compile Include="Models\UniversityServices.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\StudentServices.cs" />
     <Compile Include="Student.cs" />
-    <Compile Include="Universityy.cs" />
+    <Compile Include="University.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
