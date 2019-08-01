@@ -17,59 +17,80 @@ namespace University.Models
             }
             return true;
         }
-        static public void AddUniversity(ref Dictionary<int, University> ListOfUniversities, 
+        static public void AddUniversity(ref Dictionary<int, University> ListOfUniversities,
                     ref Dictionary<int, Country> ListOfCountries, ref Dictionary<int, City> ListOfCities)
         {
-            Console.WriteLine("Please enter the University name..");
-            string Name = Console.ReadLine();
-            bool allLetters;
-            while (!(allLetters = Name.All(c => Char.IsLetter(c))) || !(Name.IsUpper()))
+            Console.WriteLine("Please enter the City's ID where you want to add a University..");
+            var IDasStr = Console.ReadLine();
+            int ID;
+            while (!int.TryParse(IDasStr, out ID))
             {
-                Console.WriteLine("Invalid name format! Try again..");
-                Name = Console.ReadLine();
+                Console.WriteLine("This is not a number! Try again..");
+                IDasStr = Console.ReadLine();
             }
-  
-                Console.WriteLine("Please enter the City ID where you want to add University..");
-                var CityIDasStr = Console.ReadLine();
-                int CityID;
-                while (!int.TryParse(CityIDasStr, out CityID))
-                {
-                    Console.WriteLine("This is not a number! Try again..");
-                    CityIDasStr = Console.ReadLine();
-                }
-            if (ListOfCities.ContainsKey(CityID))
+            bool t = true;
+            while (t)
             {
-                bool z = true;
-                foreach (var item in ListOfCities[CityID].Universities)
+                if (ListOfCities.Count == 0)
                 {
-                    if (item.Value.Name == Name)
-                    {
-                        z = false;
-                    }
-                }
-                if (z)
-                {
-                    University university = new University();
-                    university.Name = Name;
-                    university.ID = ++University.Count;
-                    university.City = ListOfCities[CityID];
-                    university.Country = ListOfCities[CityID].Country;
-                    ListOfUniversities.Add(university.ID, university);
-                    ListOfCities[CityID].Universities.Add(university.ID, university);
+                    t = false;
+                    Console.WriteLine("The list of Cities is Empty..");
                 }
                 else
                 {
-                    Console.WriteLine("The City is  already exists in that Country!!! Try again.."); 
+                    if (!ListOfCities.ContainsKey(ID))
+                    {
+                        Console.WriteLine("There is no City on that ID! Try again..");
+                        IDasStr = Console.ReadLine();
+                        while (!int.TryParse(IDasStr, out ID))
+                        {
+                            Console.WriteLine("This is not a number! Try again..");
+                            IDasStr = Console.ReadLine();
+                        }
+                    }
+                    else
+                    {
+                        t = false;
+                        bool m = true;
+                        while (m)
+                        {
+                            bool z = true;
+                            Console.WriteLine("Please enter the University name..");
+                            string Name = Console.ReadLine();
+                            bool allLetters;
+                            while (!(allLetters = Name.All(c => Char.IsLetter(c))) || !(Name.IsUpper()))
+                            {
+                                Console.WriteLine("Invalid name format! Try again..");
+                                Name = Console.ReadLine();
+                            }
+                            foreach (var item in ListOfCities[ID].Universities)
+                            {
+                                if (item.Value.Name == Name)
+                                {
+                                    z = false;
+                                }
+                            }
+                            if (z)
+                            {
+                                m = false;
+                                University university = new University();
+                                university.Name = Name;
+                                university.ID = ++University.Count;
+                                university.City = ListOfCities[ID];
+                                university.Country = ListOfCities[ID].Country;
+                                ListOfUniversities.Add(university.ID, university);
+                                ListOfCities[ID].Universities.Add(university.ID, university);
+                            }
+                            else
+                            {
+                                Console.WriteLine("The University is  already exists in that City!!! Try again..");
+                            }
+                        }
+
+                    }
                 }
             }
-            else
-            {
-                Console.WriteLine("There is no City on this ID!");
-            }
-            }
-           
-        
-
+        }          
         static public void GetUniversity(ref Dictionary<int, University> ListOfUniversities)
         {
             Console.WriteLine("Please enter the University's ID ․․");
