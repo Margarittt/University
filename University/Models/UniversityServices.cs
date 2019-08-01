@@ -6,28 +6,30 @@ namespace University.Models
 {
     static class UniversityServices
     {
+        public static bool IsUpper(this string value)
+        {
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (char.IsLower(value[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         static public void AddUniversity(ref Dictionary<int, University> ListOfUniversities, 
                     ref Dictionary<int, Country> ListOfCountries, ref Dictionary<int, City> ListOfCities)
         {
             Console.WriteLine("Please enter the University name..");
             string Name = Console.ReadLine();
             bool allLetters;
-            while (!(allLetters = Name.All(c => Char.IsLetter(c))))
+            while (!(allLetters = Name.All(c => Char.IsLetter(c))) || !(Name.IsUpper()))
             {
-                Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                Console.WriteLine("Invalid name format! Try again..");
                 Name = Console.ReadLine();
             }
-            Console.WriteLine("Please enter the Country ID where you want to add..");
-            var CountryIDasStr = Console.ReadLine();
-            int CountryID;
-            while (!int.TryParse(CountryIDasStr, out CountryID))
-            {
-                Console.WriteLine("This is not a number! Try again..");
-                CountryIDasStr = Console.ReadLine();
-            }
-            if (ListOfCountries.ContainsKey(CountryID))
-            {
-                Console.WriteLine("Please enter the City ID where you want to add..");
+  
+                Console.WriteLine("Please enter the City ID where you want to add University..");
                 var CityIDasStr = Console.ReadLine();
                 int CityID;
                 while (!int.TryParse(CityIDasStr, out CityID))
@@ -35,26 +37,38 @@ namespace University.Models
                     Console.WriteLine("This is not a number! Try again..");
                     CityIDasStr = Console.ReadLine();
                 }
-                if (ListOfCountries[CountryID].Cities.ContainsKey(CityID))
+            if (ListOfCities.ContainsKey(CityID))
+            {
+                bool z = true;
+                foreach (var item in ListOfCities[CityID].Universities)
+                {
+                    if (item.Value.Name == Name)
+                    {
+                        z = false;
+                    }
+                }
+                if (z)
                 {
                     University university = new University();
                     university.Name = Name;
                     university.ID = ++University.Count;
                     university.City = ListOfCities[CityID];
-                    university.Country = ListOfCountries[CountryID];
+                    university.Country = ListOfCities[CityID].Country;
                     ListOfUniversities.Add(university.ID, university);
-                    ListOfCountries[CountryID].Cities[CityID].Universities.Add(university.ID, university);
+                    ListOfCities[CityID].Universities.Add(university.ID, university);
                 }
                 else
                 {
-                    Console.WriteLine("There is no City on this ID!");
+                    Console.WriteLine("The City is  already exists in that Country!!! Try again.."); 
                 }
             }
             else
             {
-                Console.WriteLine("There is no Country on this ID!");
+                Console.WriteLine("There is no City on this ID!");
             }
-        }
+            }
+           
+        
 
         static public void GetUniversity(ref Dictionary<int, University> ListOfUniversities)
         {

@@ -140,7 +140,7 @@ namespace University
                         CityServices.ShowCities(ref ListOfCities);
                         break;
                     case "3h":
-                        UniversityServices.ShowUniversities(ref ListOfUniversities);
+                        UniversityServices.ShowUniversities(ref ListOfUniversities); 
                         break;
                     case "4h":
                         FacultyServices.ShowFaculties(ref ListOfFaculties);
