@@ -30,7 +30,7 @@ namespace University
                               "2b: . .  Get City\n" +
                               "2c: . .  Delete City\n" +
                               "2d: . .  Update City\n");
-            Console.WriteLine("3a: . .  Add new City\n" +
+            Console.WriteLine("3a: . .  Add new University\n" +
                               "3b: . .  Get University\n" +
                               "3c: . .  Delete University\n" +
                               "3d: . .  Update University\n");
@@ -74,31 +74,31 @@ namespace University
                         UniversityServices.UpdateUniversity(ref ListOfUniversities);
                         break;
                     case "2a":
-                        CityServices.AddCity(ref ListOfCountries, ref ListOfCities);
+                        Console.WriteLine(CityServices.AddCity(ref ListOfCountries, ref ListOfCities)); 
                         break;
                     case "2b":
-                        CityServices.GetCity(ref ListOfCities);
+                        Console.WriteLine(CityServices.GetCity(ref ListOfCities));
                         break;
                     case "2c":
-                        CityServices.RemoveCity(ref ListOfCities);
+                        Console.WriteLine(CityServices.RemoveCity(ref ListOfCities));
                         break;
                     case "2d":
-                        CityServices.UpdateCity(ref ListOfCities);
+                        Console.WriteLine(CityServices.UpdateCity(ref ListOfCities));
                         break;
                     case "1a":
-                        CountryServices.AddCountry(ref ListOfCountries);
+                        Console.WriteLine(CountryServices.AddCountry(ref ListOfCountries));
                         break;
                     case "1b":
-                        CountryServices.GetCountry(ref ListOfCountries);
+                        Console.WriteLine(CountryServices.GetCountry(ref ListOfCountries));
                         break;
                     case "1c":
-                        CountryServices.RemoveCountry(ref ListOfCountries);
+                        Console.WriteLine(CountryServices.RemoveCountry(ref ListOfCountries));
                         break;
                     case "4a":
-                        FacultyServices.AddFaculty(ref ListOfUniversities, ref ListOfCountries, ref ListOfCities, ref ListOfFaculties);
+                        Console.WriteLine(FacultyServices.AddFaculty(ref ListOfUniversities, ref ListOfFaculties));
                         break;
                     case "4b":
-                        FacultyServices.GetFaculty(ref ListOfFaculties);
+                        Console.WriteLine(FacultyServices.GetFaculty(ref ListOfFaculties));
                         break;
                     case "4c":
                         FacultyServices.RemoveFaculty(ref ListOfFaculties);
@@ -119,7 +119,7 @@ namespace University
                         LecturerServices.UpdateLecturer(ref ListOfLecturers);
                         break;
                     case "1d":
-                        CountryServices.UpdateCountry(ref ListOfCountries);
+                        Console.WriteLine(CountryServices.UpdateCountry(ref ListOfCountries));
                         break;
                     case "6a":
                         StudentsServices.AddStudent(ref ListOfUniversities, ref ListOfStudents);

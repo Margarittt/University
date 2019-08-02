@@ -12,9 +12,9 @@ namespace University.Models
             Console.WriteLine("Please enter the lecturer name..");
             string Name = Console.ReadLine();
             bool allLetters;
-            while (!(allLetters = Name.All(c => Char.IsLetter(c))))
+            while (!(allLetters = Name.All(c => Char.IsLetter(c))) || !(Char.IsUpper(Name, 0)))
             {
-                Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                Console.WriteLine("Invalid name format! Try again..");
                 Name = Console.ReadLine();
             }
             Console.WriteLine("Please enter the University ID where you want to add..");
@@ -37,11 +37,13 @@ namespace University.Models
                 }
                 if (ListOfUniversities[LID].Faculties.ContainsKey(FID))
                 {
-                    Lecturer lecturer = new Lecturer();
-                    lecturer.Name = Name;
-                    lecturer.ID = ++Lecturer.Count;
-                    lecturer.University = ListOfUniversities[LID];
-                    lecturer.Faculty = ListOfUniversities[LID].GetFaculty(FID);
+                    Lecturer lecturer = new Lecturer
+                    {
+                        Name = Name,
+                        ID = ++Lecturer.Count,
+                        University = ListOfUniversities[LID],
+                        Faculty = ListOfUniversities[LID].GetFaculty(FID)
+                    };
                     ListOfUniversities[LID].SetLecturer(lecturer.ID, lecturer);
                     ListOfUniversities[LID].GetFaculty(FID).SetLecturer(lecturer.ID, lecturer);
                     ListOfLecturers.Add(lecturer.ID, lecturer);
@@ -118,9 +120,9 @@ namespace University.Models
                 Console.WriteLine("Please enter the new lecturer's name..");
                 NewName = Console.ReadLine();
                 bool allLetters;
-                while (!(allLetters = NewName.All(c => Char.IsLetter(c))))
+                while (!(allLetters = NewName.All(c => Char.IsLetter(c))) || !(Char.IsUpper(NewName, 0)))
                 {
-                    Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                    Console.WriteLine("Invalid name format!! Try again..");
                     NewName = Console.ReadLine();
                 }
                 ListOfLecturers[LID].Name = NewName;

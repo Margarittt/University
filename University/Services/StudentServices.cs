@@ -11,9 +11,9 @@ namespace University.Models
             Console.WriteLine("Please enter the student name..");
             string Name = Console.ReadLine();
             bool allLetters;
-            while (!(allLetters = Name.All(c => Char.IsLetter(c))))
+            while (!(allLetters = Name.All(c => Char.IsLetter(c))) || !(Char.IsUpper(Name, 0)))
             {
-                Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                Console.WriteLine("Invalid name format! Try again..");
                 Name = Console.ReadLine();
             }
             Console.WriteLine("Please enter the University ID where you want to add..");
@@ -117,9 +117,9 @@ namespace University.Models
                 Console.WriteLine("Please enter the new student's name..");
                 ListOfStudents[SID].Name = NewName;
                 bool allLetters;
-                while (!(allLetters = NewName.All(c => Char.IsLetter(c))))
+                while (!(allLetters = NewName.All(c => Char.IsLetter(c))) || !(Char.IsUpper(NewName, 0)))
                 {
-                    Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                    Console.WriteLine("Invalid name format! Try again..");
                     NewName = Console.ReadLine();
                 }
                 ListOfStudents[SID].University.GetStudent(SID).Name = NewName;

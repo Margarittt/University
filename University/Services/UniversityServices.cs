@@ -112,7 +112,6 @@ namespace University.Models
                 Console.WriteLine("There is no University on this ID!");
             }
         }
-
         static public void RemoveUniversity(ref Dictionary<int, University> ListOfUniversities)
         {
             Console.WriteLine("Please enter the University's ID․․");
@@ -151,9 +150,9 @@ namespace University.Models
                 Console.WriteLine("Please enter the new University's name..");
                 NewName = Console.ReadLine();
                 bool allLetters;
-                while (!(allLetters = NewName.All(c => Char.IsLetter(c))))
+                while (!(allLetters = NewName.All(c => Char.IsLetter(c))) || !(NewName.IsUpper()))
                 {
-                    Console.WriteLine("Name should contains only letters A-Z, a-z! Try again..");
+                    Console.WriteLine("Invalid name format! Try again..");
                     NewName = Console.ReadLine();
                 }
                 ListOfUniversities[UID].Name = NewName;
@@ -163,13 +162,19 @@ namespace University.Models
                 Console.WriteLine("There is no University on this ID!");
             }
         }
-
         public static void ShowUniversities(ref Dictionary<int, University> ListOfUniversities)
         {
-            foreach (KeyValuePair<int, University> university in ListOfUniversities)
+            if (ListOfUniversities.Count == 0)
             {
-                Console.WriteLine("{0}-{1} {2},{3}", university.Value.ID, 
-                    university.Value.Name, university.Value.City.Name,university.Value.Country.Name);
+                Console.WriteLine("The list of Cities is Empty..");
+            }
+            else
+            {
+                foreach (KeyValuePair<int, University> university in ListOfUniversities)
+                {
+                    Console.WriteLine("{0}-{1} {2},{3}", university.Value.ID,
+                        university.Value.Name, university.Value.City.Name, university.Value.Country.Name);
+                }
             }
         }
     }
